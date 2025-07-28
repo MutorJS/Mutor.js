@@ -1,0 +1,9 @@
+{
+	"name": "mutor.js",
+	"version": "1.0.0",
+	"main": "src/core/index.js",
+	"repository": "git@github.com:MutorJS/Mutor.js.git",
+	"author": "allAboutJS <victoronah1914@gmail.com>",
+	"license": "MIT",
+	"type": "module"
+}
