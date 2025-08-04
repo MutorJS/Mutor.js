@@ -1,8 +1,10 @@
 import { mount } from "../src/core/render.js";
-import { effect, reactive } from "../src/core/state.js";
+import { reactive } from "../src/core/state.js";
 
-const state = reactive({ todos: ["Eat", "Sleep", "Code"], newTodo: "" });
-effect(() => console.log(state.todos));
+const state = reactive({
+	todos: ["Eat", "Sleep", "Code"],
+	newTodo: "",
+});
 
 const Form = {
 	tagname: "form",
@@ -18,7 +20,7 @@ const Form = {
 				},
 			},
 		},
-		{ tagname: "button", attributes: { text: "Add Todo" } },
+		{ tagname: "button", attributes: { text: "Add Todo", type: "submit" } },
 	],
 	events: {
 		submit: (e) => {
@@ -37,13 +39,18 @@ const TodoList = {
 			key: todo,
 			tagname: "li",
 			attributes: { text: todo },
+			events: {
+				click: () => {
+					state.todos = state.todos.filter((_todo) => todo !== _todo);
+				},
+			},
 		})),
 };
 
 const TodoApp = {
-	children: () => [null, Form, TodoList],
+	children: [Form, TodoList],
 };
 
 const start = performance.now();
-console.log(mount(TodoApp, document.getElementById("app")));
+mount(TodoApp, document.getElementById("app"));
 console.log(`App mounted in ${performance.now() - start}ms`);
